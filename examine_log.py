@@ -3,24 +3,19 @@ import pandas as pd
 import numpy as np
 
 src_log_info = r'C:\Users\DENG\Desktop\审批日志数据0703\rizhi.csv'
-land_id_info = r'C:\Users\DENG\Desktop\审批日志数据0703\islanduseinfo.csv'
 user_info = r'C:\Users\DENG\Desktop\审批日志数据0703\wjmuser.csv'
+
+res_csv = r'C:\Users\DENG\Desktop\examine_log.csv'
 
 user_unit_list, user_name_list = [], []
 
-table_id = []
-exam_city_personname = []
-exam_province_personname = []
-exam_city_date = []
-exam_province_date = []
+table_id_list = []
+exam_city_personname_list = []
+exam_province_personname_list = []
+exam_city_date_list = []
+exam_province_date_list = []
 
 chongfu = []
-
-#获取海岛id
-def get_land_id_list(filename):
-    data = pd.read_csv(filename, header=None, skiprows=1, sep=',')
-    land_id = list(data.values[:,0]) #岛id
-    return land_id
 
 #获取用户信息
 def get_user_info_list(filename):
@@ -43,34 +38,34 @@ def get_log_info_list(filename):
     return log_land_id, log_user_name, log_operation, log_examine_time
 
 #创建写入信息列表
-# def create_info_list(xx, xx):
-#     try:
-#         info_list = []
-#         for xx, xx in zip(xx, xx):
-#             info = '"%s","%s","%s","%s","%s","%s","%s","%s","%s"' % (xx, xx)
-#             info_list.append(info)           
-#         return info_list
+def create_info_list(table_id_all, exam_city_personname_all, exam_province_personname_all, exam_city_date_all, exam_province_date_all):
+    try:
+        info_list = []
+        for table_id_1, exam_city_personname_1, exam_province_personname_1, exam_city_date_1, exam_province_date_1 in zip\
+            (table_id_all, exam_city_personname_all, exam_province_personname_all, exam_city_date_all, exam_province_date_all):
+            info = '"%s","%s","%s","%s","%s"' % (table_id_1, exam_city_personname_1, exam_province_personname_1, exam_city_date_1, exam_province_date_1)
+            info_list.append(info)           
+        return info_list
     
-#     except Exception as e:  
-#         print("执行 %s 函数发生错误：%s"  % (sys._getframe().f_code.co_name, e))
-#         return False 
+    except Exception as e:  
+        print("执行 %s 函数发生错误：%s"  % (sys._getframe().f_code.co_name, e))
+        return False 
 
 # 写回数据内容
-# def write_info_file(filename, info_list):
-#     fw = open(filename,'w', encoding = 'UTF-8')
-#     fw.write('"ID","EXAM_CITY_PERSONNAME","EXAM_PROVINCE_PERSONNAME","EXAM_HQ_PERSONNAME"\
-#         ,"EXAM_COUNTRY_PERSONNAME","EXAM_CITY_DATE","EXAM_PROVINCE_DATE","EXAM_HQ_DATE","EXAM_COUNTRY_DATE"\n')
+def write_info_file(filename, info_list):
+    fw = open(filename,'w', encoding = 'UTF-8')
+    fw.write('"ID","EXAM_CITY_PERSONNAME","EXAM_PROVINCE_PERSONNAME","EXAM_CITY_DATE","EXAM_PROVINCE_DATE"\n')
     
-#     #对于新增开发项目的内容先写入另一个文件之中，以新增模式更新数据库
-#     for info in info_list:
-#         fw.write(info)
-#         fw.write('\n')
-#     fw.close()
+    #对于新增开发项目的内容先写入另一个文件之中，以新增模式更新数据库
+    for info in info_list:
+        fw.write(info)
+        fw.write('\n')
+    fw.close()
     
-#     print ('成功创建：%s' % filename)
-#     return True  
+    print ('成功创建：%s' % filename)
+    return True  
 
-def test(log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list):
+def get_info(log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list):
     #日志
     for land_id in log_land_id_list:
         #land_id = 3698
@@ -136,11 +131,11 @@ def test(log_land_id_list, log_user_name_list, log_operation_list, log_examine_t
         if s_name != '':
             s_name = s_name[:-1]
             s_date = s_date[:-1]
-        exam_city_personname.append(d_name)
-        exam_city_date.append(d_date)
-        exam_province_personname.append(s_name)
-        exam_province_date.append(s_date)
-        table_id.append(land_id)
+        exam_city_personname_list.append(d_name)
+        exam_city_date_list.append(d_date)
+        exam_province_personname_list.append(s_name)
+        exam_province_date_list.append(s_date)
+        table_id_list.append(land_id)
         
         
 #获取单位         
@@ -149,15 +144,16 @@ def get_unit(name):
         if name == a:
             return user_unit_list[index]
     return
+
+
 if __name__ == "__main__":
     user_unit_list, user_name_list = get_user_info_list(user_info)
     
-    land_id_list = []
     log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list = [], [], [], []
 
-    land_id_list = get_land_id_list(land_id_info)
     log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list = get_log_info_list(src_log_info)
 
-    test(log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list)
+    get_info(log_land_id_list, log_user_name_list, log_operation_list, log_examine_time_list)
+    info_list = create_info_list(table_id_list, exam_city_personname_list, exam_province_personname_list, exam_city_date_list, exam_province_date_list)
+    write_info_file(res_csv, info_list)
     
-    print(len(table_id))
