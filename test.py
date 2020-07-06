@@ -25,4 +25,16 @@ xh = list(data.values[:, 0])
 name = list(data.values[:, 1])
 age = list(data.values[:, 2])
 
-print(data)
+#print(xh)
+
+#输出下标及对应位置的数值
+# s1 = [1, 2, 3, 4, 5, 6]
+# for index, nums in enumerate(s1):
+#     print(index,nums)
+
+list1 = []
+list1.append('')
+list1.append('')
+list1.append('')
+list1.append('1')
+print(list1)
