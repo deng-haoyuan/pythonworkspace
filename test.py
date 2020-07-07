@@ -2,7 +2,7 @@ import os, sys
 import shutil
 import pandas as pd
 import numpy as np
-
+import shapefile
 #src_path = r'E:\test\111\111.txt'
 #dest_path = r'E:\test\333'
 
@@ -17,13 +17,13 @@ import numpy as np
 
 #print(b in a or '12' in b)
 
-filename = r'C:\Users\DENG\Desktop\111.csv'
+# filename = r'C:\Users\DENG\Desktop\111.csv'
 
-data = pd.read_csv(filename, header=None, skiprows=1, sep=',')
+# data = pd.read_csv(filename, header=None, skiprows=1, sep=',')
 
-xh = list(data.values[:, 0])
-name = list(data.values[:, 1])
-age = list(data.values[:, 2])
+# xh = list(data.values[:, 0])
+# name = list(data.values[:, 1])
+# age = list(data.values[:, 2])
 
 #print(xh)
 
@@ -32,9 +32,12 @@ age = list(data.values[:, 2])
 # for index, nums in enumerate(s1):
 #     print(index,nums)
 
-list1 = []
-list1.append('')
-list1.append('')
-list1.append('')
-list1.append('1')
-print(list1)
+# list1 = []
+# list1.append('')
+# list1.append('')
+# list1.append('')
+# list1.append('1')
+# print(list1)
+path = r'C:\Users\DENG\Desktop\工作\资产清查系统\海域权属数据样例\海域权属数据.shp'
+shps = shapefile.Reader(path, encoding='gb18030')
+print(shps.fields)
