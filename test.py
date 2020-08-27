@@ -3,6 +3,7 @@ import shutil
 import pandas as pd
 import numpy as np
 import shapefile
+
 #src_path = r'E:\test\111\111.txt'
 #dest_path = r'E:\test\333'
 
@@ -38,6 +39,18 @@ import shapefile
 # list1.append('')
 # list1.append('1')
 # print(list1)
-path = r'C:\Users\DENG\Desktop\工作\资产清查系统\海域权属数据样例\海域权属数据.shp'
-shps = shapefile.Reader(path, encoding='gb18030')
-print(shps.fields)
+# path = r'C:\Users\DENG\Desktop\工作\资产清查系统\海域权属数据样例\海域权属数据.shp'
+# shps = shapefile.Reader(path, encoding='gb18030')
+# print(shps.fields)
+#p = r'C:\Users\DENG\Desktop\wjmhd\福建省\漳州市\漳浦县\3506231001517-漳浦东礁\佐证材料1'
+#print(os.path.exists(p))
+i = 0
+def test1():
+    i = 100
+    test2()
+    print(i)
+def test2():
+    i = 200
+if __name__ == "__main__":
+    test1()
+    print(i)
