@@ -1,14 +1,14 @@
-import os, sys
+import os
 import shutil
 import pandas as pd
-import numpy as np
 
-file_path = r'C:\Users\DENG\Desktop\file.csv'
-folder_path = r'C:\Users\DENG\Desktop\folder.csv'
 
-dest_path = r'E:\test\wjmhd' #目标路径
+file_path = r'C:\Users\Administrator\Desktop\file.csv'
+folder_path = r'C:\Users\Administrator\Desktop\folder.csv'
 
-files_path = r'E:\test\测试文件'#文件路径
+dest_path = r'E:\wjmhd' #目标路径
+
+files_path = r'Z:\download\fileblocks'#文件路径
 
 folder_id = []
 folder_name = []
@@ -18,10 +18,13 @@ file_name= []
 file_parent_folder = []
 file_name_old = []
 
+
+#河北省
+fp_id = '9c1c8e2c-ba18-40a4-a3ca-c559fbe152d5'
 #2102831000444-盘坨子
-fp_id = '8ca38dfc-528e-4ccb-9f78-7aaca4dba155'
+#fp_id = '8ca38dfc-528e-4ccb-9f78-7aaca4dba155'
 #全国
-'498d365d-38fe-4d60-be84-96b961c92c14'
+#fp_id = '498d365d-38fe-4d60-be84-96b961c92c14'
 
 #读取csv
 def get_info_list(filename):
@@ -80,14 +83,15 @@ def copy_file(fpf, new_file_path):
     except Exception as e:
         print('复制文件失败：%s文件名称：%s' % (e, old_file_path))
 
-#获取目录下所有文件
+#获取目录下所有文件（目录下没有文件夹）
 def get_all_file(path, list_name):
     for filename in os.listdir(path):
-        file_path = os.path.join(path, filename)
-        if os.path.isdir(file_path):
-            get_all_file(file_path, list_name)
-        else:
-            list_name.append(filename)
+        # file_path = os.path.join(path, filename)
+        # if os.path.isdir(file_path):
+        #     get_all_file(file_path, list_name)
+        # else:
+        list_name.append(filename)
+    print('获取文件列表')
 
 
 if __name__ == "__main__":
