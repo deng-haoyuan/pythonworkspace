@@ -37,13 +37,9 @@ def get_info_list(filename):
     return list1, list2, list3
 
 #创建文件目录
-def creat_folder(fp_ls, d_path):
+def creat_folder(folder_list):
     try:
-        index = 0
-
-        for fp in folder_parent:
-
-            
+        
 
     except Exception as e:
         print('创建文件失败：%s文件目录：%s' % (e, path))
