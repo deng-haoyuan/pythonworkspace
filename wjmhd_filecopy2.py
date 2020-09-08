@@ -1,10 +1,11 @@
 import os
 import shutil
 import pandas as pd
+import numpy as np
 
 
-file_path = r'C:\Users\Administrator\Desktop\file.csv'
-folder_path = r'C:\Users\Administrator\Desktop\folder.csv'
+file_path = r'C:\Users\DENG\Desktop\file.csv'
+folder_path = r'C:\Users\DENG\Desktop\folder.csv'
 
 dest_path = r'E:\wjmhd' #目标路径
 
@@ -37,12 +38,33 @@ def get_info_list(filename):
     return list1, list2, list3
 
 #创建文件目录
-def creat_folder(folder_list):
-    try:
-        
+def creat_folder(list_id, list_name, list_parent, isGo, start = 0, path = ''):
 
-    except Exception as e:
-        print('创建文件失败：%s文件目录：%s' % (e, path))
+    
+    
+    for i in list_id:
+        if isGo is False:
+            return
+
+        if list_parent[start] == i or list_parent[list_id.index(i)] == '123':
+            
+            path = os.path.join(list_name[list_id.index(i)], path)
+
+            if list_parent[list_id.index(i)] == '123':
+                
+                path = os.path.join(dest_path, path)
+                isExists = os.path.exists(path)
+                if not isExists:
+                    
+                    os.makedirs(path)
+
+                path = ''
+                isGo = False
+            
+            creat_folder(list_id, list_name, list_parent, isGo, list_id.index(i), path)
+        isGo = True
+
+
 
 def copy_file(fpf, new_file_path):
     try:
@@ -79,9 +101,10 @@ def get_all_file(path, list_name):
 
 
 if __name__ == "__main__":
+    isGo = True
     folder_id, folder_name, folder_parent = get_info_list(folder_path)
     file_name, file_parent_folder, file_name_old = get_info_list(file_path)
     list_file_old = []
-    get_all_file(files_path, list_file_old)
-    creat_folder(fp_id, dest_path)
+    #get_all_file(files_path, list_file_old)
+    creat_folder(folder_id, folder_name, folder_parent, True)
     

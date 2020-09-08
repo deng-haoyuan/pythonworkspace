@@ -18,15 +18,19 @@ import shapefile
 
 #print(b in a or '12' in b)
 
-# filename = r'C:\Users\DENG\Desktop\111.csv'
+filename = r'C:\Users\DENG\Desktop\111.csv'
 
-# data = pd.read_csv(filename, header=None, skiprows=1, sep=',')
+list_test = []
+data = pd.read_csv(filename, header=None, skiprows=1, sep=',')
 
-# xh = list(data.values[:, 0])
-# name = list(data.values[:, 1])
-# age = list(data.values[:, 2])
-
-#print(xh)
+xh = list(data.values[:, 0])
+name = list(data.values[:, 1])
+age = list(data.values[:, 2])
+list_test.append(xh)
+list_test.append(name)
+list_test.append(age)
+#print(list_test[0][0])
+print(os.path.exists(filename) is False)
 
 #输出下标及对应位置的数值
 # s1 = [1, 2, 3, 4, 5, 6]
@@ -44,13 +48,13 @@ import shapefile
 # print(shps.fields)
 #p = r'C:\Users\DENG\Desktop\wjmhd\福建省\漳州市\漳浦县\3506231001517-漳浦东礁\佐证材料1'
 #print(os.path.exists(p))
-i = 0
-def test1():
-    i = 100
-    test2()
-    print(i)
-def test2():
-    i = 200
-if __name__ == "__main__":
-    test1()
-    print(i)
+# i = 0
+# def test1():
+#     i = 100
+#     test2()
+#     print(i)
+# def test2():
+#     i = 200
+# if __name__ == "__main__":
+#     test1()
+#     print(i)
