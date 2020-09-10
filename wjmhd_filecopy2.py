@@ -1,3 +1,4 @@
+import sys
 import os
 import shutil
 import pandas as pd
@@ -40,24 +41,20 @@ def get_info_list(filename):
 #创建文件目录
 def creat_folder(list_id, list_name, list_parent, isGo, start = 0, path = ''):
 
-    
-    
     for i in list_id:
         if isGo is False:
             return
 
         if list_parent[start] == i or list_parent[list_id.index(i)] == '123':
-            
             path = os.path.join(list_name[list_id.index(i)], path)
-
+            
             if list_parent[list_id.index(i)] == '123':
-                
                 path = os.path.join(dest_path, path)
                 isExists = os.path.exists(path)
-                if not isExists:
-                    
+                
+                if not isExists:    
                     os.makedirs(path)
-
+                    print('文件路径：' + path)
                 path = ''
                 isGo = False
             
@@ -101,6 +98,8 @@ def get_all_file(path, list_name):
 
 
 if __name__ == "__main__":
+    sys.setrecursionlimit(1000000)
+    
     isGo = True
     folder_id, folder_name, folder_parent = get_info_list(folder_path)
     file_name, file_parent_folder, file_name_old = get_info_list(file_path)
