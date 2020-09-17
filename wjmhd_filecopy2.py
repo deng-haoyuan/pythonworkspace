@@ -38,28 +38,33 @@ def get_info_list(filename):
 
     return list1, list2, list3
 
-#创建文件目录
-def creat_folder(list_id, list_name, list_parent, isGo, start = 0, path = ''):
-
+#创建文件目录-可能需要两个函数，一个只做循环，另一个做逻辑运算
+def for_folder(list_id):
     for i in list_id:
-        if isGo is False:
-            return
+        creat_folder(i)
 
-        if list_parent[start] == i or list_parent[list_id.index(i)] == '123':
-            path = os.path.join(list_name[list_id.index(i)], path)
+def creat_folder(id, list_name, list_parent, isGo, start = 0, path = ''):
+
+    
+    if isGo is False:
+        return
+    if list_parent[start] == i or list_parent[list_id.index(i)] == '123':
+        path = os.path.join(list_name[list_id.index(i)], path)
+        
+        if list_parent[list_id.index(i)] == '123':
+            path = os.path.join(dest_path, path)
+            isExists = os.path.exists(path)
             
-            if list_parent[list_id.index(i)] == '123':
-                path = os.path.join(dest_path, path)
-                isExists = os.path.exists(path)
-                
-                if not isExists:    
-                    os.makedirs(path)
-                    print('文件路径：' + path)
-                path = ''
-                isGo = False
+            if not isExists:    
+                os.makedirs(path)
+                print('文件路径：' + path)
+            path = ''
+            isGo = False
             
-            creat_folder(list_id, list_name, list_parent, isGo, list_id.index(i), path)
-        isGo = True
+        
+        creat_folder(list_id, list_name, list_parent, isGo, list_id.index(i), path)
+    isGo = True
+        
 
 
 
