@@ -1,14 +1,15 @@
 import os
 import shutil
 import pandas as pd
+import zipfile
 
 
-file_path = r'C:\Users\Administrator\Desktop\file.csv'
-folder_path = r'C:\Users\Administrator\Desktop\folder.csv'
+file_path = r'C:\Users\DENG\Desktop\file.csv'
+folder_path = r'C:\Users\DENG\Desktop\folder.csv'
 
 dest_path = r'E:\wjmhd' #目标路径
 
-files_path = r'Z:\download\fileblocks'#文件路径
+files_path = r'E:\wjmhd\测试文件'#文件路径
 
 folder_id = []
 folder_name = []
@@ -20,9 +21,9 @@ file_name_old = []
 
 
 #河北省
-fp_id = '9c1c8e2c-ba18-40a4-a3ca-c559fbe152d5'
+#fp_id = '9c1c8e2c-ba18-40a4-a3ca-c559fbe152d5'
 #2102831000444-盘坨子
-#fp_id = '8ca38dfc-528e-4ccb-9f78-7aaca4dba155'
+fp_id = '8ca38dfc-528e-4ccb-9f78-7aaca4dba155'
 #全国
 #fp_id = '498d365d-38fe-4d60-be84-96b961c92c14'
 
@@ -36,7 +37,34 @@ def get_info_list(filename):
 
     return list1, list2, list3
 
-#创建文件目录
+
+#压缩岛文件夹为zip
+def zip_ya(fp_ls):
+    index = folder_id.index(fp_ls)
+    folder_dir = folder_name[index]
+    file_news = folder_dir + '.zip'
+    
+    #理解
+    z = zipfile.ZipFile(file_news,'w',zipfile.ZIP_DEFLATED)
+    for dirpath, dirnames, filenames in os.walk(folder_dir):
+        fpath = dirpath.replace(folder_dir,'') #这一句很重要，不replace的话，就从根目录开始复制
+        fpath = fpath and fpath + os.sep or ''#实现当前文件夹以及包含的所有文件的压缩
+        for filename in filenames:
+            z.write(os.path.join(dirpath, filename),fpath+filename)
+            print ('压缩成功')
+    z.close()
+
+#创建海岛文件夹
+def creat_land_folder(fp_ls, d_path):
+    path = os.path.join(d_path, folder_name[folder_id.index(fp_ls)])
+    os.mkdir(path)
+    creat_folder(fp_ls, path)
+
+    #zip_ya(fp_ls)
+
+    return 
+
+#创建下级文件目录
 def creat_folder(fp_ls, d_path):
     try:
         index = 0
@@ -44,6 +72,8 @@ def creat_folder(fp_ls, d_path):
         for fp in folder_parent:
 
             if fp == fp_ls:
+                
+                
                 path = os.path.join(d_path, folder_name[index])
                 
                 os.mkdir(path)
@@ -99,5 +129,5 @@ if __name__ == "__main__":
     file_name, file_parent_folder, file_name_old = get_info_list(file_path)
     list_file_old = []
     get_all_file(files_path, list_file_old)
-    creat_folder(fp_id, dest_path)
+    creat_land_folder(fp_id, dest_path)
     
