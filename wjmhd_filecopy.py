@@ -2,6 +2,7 @@ import os
 import shutil
 import pandas as pd
 import zipfile
+import datetime
 
 
 file_path = r'C:\Users\DENG\Desktop\file.csv'
@@ -71,7 +72,8 @@ def zip_ya(fp_ls, d_path):
     return delete_folder(path)
 
 #创建海岛文件夹
-def creat_land_folder(fp_ls, d_path):
+def creat_land_folder(fp_ls):
+    d_path = dest_path
     path = os.path.join(d_path, folder_name[folder_id.index(fp_ls)])
     os.mkdir(path)
     creat_folder(fp_ls, path)
@@ -125,11 +127,12 @@ def get_all_file(path, list_name):
         list_name.append(filename)
     print('获取文件列表')
 
-
 if __name__ == "__main__":
+    starttime = datetime.datetime.now()#开始时间
     folder_id, folder_name, folder_parent = get_info_list(folder_path)
     file_name, file_parent_folder, file_name_old = get_info_list(file_path)
-    list_file_old = []
-    get_all_file(files_path, list_file_old)
-    creat_land_folder(fp_id, dest_path)
-    
+    #list_file_old = []
+    #get_all_file(files_path, list_file_old)
+    creat_land_folder(fp_id)
+    endtime = datetime.datetime.now()#结束时间
+    print(endtime - starttime)
